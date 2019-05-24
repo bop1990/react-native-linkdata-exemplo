@@ -1418,7 +1418,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       }
     });
   });
-},0,[1,2,599,571],"index.js");
+},0,[1,2,612,571],"index.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
@@ -1458,6 +1458,8 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   var _reactNativeSplashScreen = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[11], "react-native-splash-screen"));
 
+  var _Bluetooth = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[12], "./components/Bluetooth"));
+
   var _jsxFileName = "c:\\Users\\bruno.petry\\Documents\\projetos\\projeto1\\App.js";
   var _components = {
     App: {
@@ -1486,9 +1488,13 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   var App = _wrapComponent("App")(function (_Component) {
     (0, _inherits2.default)(App, _Component);
 
-    function App() {
+    function App(props) {
+      var _this;
+
       (0, _classCallCheck2.default)(this, App);
-      return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(App).apply(this, arguments));
+      _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(App).call(this, props));
+      _this.bluetooth = new _Bluetooth.default();
+      return _this;
     }
 
     (0, _createClass2.default)(App, [{
@@ -1503,34 +1509,52 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
           style: styles.container,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 30
+            lineNumber: 36
           }
         }, _react.default.createElement(_reactNative.Text, {
           style: styles.welcome,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 31
+            lineNumber: 37
           }
-        }, "Welcome to React Native! eee"), _react.default.createElement(_reactNative.Text, {
+        }, "Welcome to React Native! kkkkk"), _react.default.createElement(_reactNative.Text, {
           style: styles.instructions,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 32
+            lineNumber: 38
           }
         }, "To get started, edit App.js"), _react.default.createElement(_reactNative.Text, {
           style: styles.instructions,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 33
+            lineNumber: 39
           }
         }, instructions), _react.default.createElement(_reactNative.Button, {
           onPress: this.botaoTela2.bind(this),
           title: "Tela 2",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 36
+            lineNumber: 42
+          }
+        }), _react.default.createElement(_reactNative.Text, {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 47
+          }
+        }, "\n\n"), _react.default.createElement(_reactNative.Button, {
+          style: styles.margemTop,
+          onPress: this.botaoBluetooth.bind(this),
+          title: "Bluetooth",
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 49
           }
         }));
+      }
+    }, {
+      key: "botaoBluetooth",
+      value: function botaoBluetooth() {
+        this.bluetooth.scanAndConnect();
       }
     }, {
       key: "botaoTela2",
@@ -1571,9 +1595,13 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       textAlign: 'center',
       color: '#333333',
       marginBottom: 5
+    },
+    margemTop: {
+      margin: 40,
+      padding: 10
     }
   });
-},2,[1,3,4,5,6,9,10,12,19,173,571,598],"App.js");
+},2,[1,3,4,5,6,9,10,12,19,173,571,598,599],"App.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   function _interopRequireWildcard(obj) {
     if (obj && obj.__esModule) {
@@ -102802,6 +102830,1705 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
   exports.default = _default;
 },598,[173],"node_modules\\react-native-splash-screen\\index.js");
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  var _interopRequireWildcard = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireWildcard");
+
+  var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/interopRequireDefault");
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/helpers/classCallCheck"));
+
+  var _createClass2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3], "@babel/runtime/helpers/createClass"));
+
+  var _possibleConstructorReturn2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[4], "@babel/runtime/helpers/possibleConstructorReturn"));
+
+  var _getPrototypeOf2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[5], "@babel/runtime/helpers/getPrototypeOf"));
+
+  var _inherits2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[6], "@babel/runtime/helpers/inherits"));
+
+  var _react = _interopRequireWildcard(_$$_REQUIRE(_dependencyMap[7], "react"));
+
+  var _reactNativeBlePlx = _$$_REQUIRE(_dependencyMap[8], "react-native-ble-plx");
+
+  var _reactNative = _$$_REQUIRE(_dependencyMap[9], "react-native");
+
+  var Bluetooth = function (_Component) {
+    (0, _inherits2.default)(Bluetooth, _Component);
+
+    function Bluetooth() {
+      var _this;
+
+      (0, _classCallCheck2.default)(this, Bluetooth);
+      _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Bluetooth).call(this));
+      _this.manager = new _reactNativeBlePlx.BleManager();
+      _this.devices = [];
+      _this.cont = 0;
+      return _this;
+    }
+
+    (0, _createClass2.default)(Bluetooth, [{
+      key: "componentWillMount",
+      value: function componentWillMount() {
+        var _this2 = this;
+
+        if (_reactNative.Platform.OS === 'ios') {
+          this.manager.onStateChange(function (state) {
+            if (state === 'PoweredOn') _this2.scanAndConnect();
+          });
+        } else {}
+      }
+    }, {
+      key: "teste",
+      value: function teste() {
+        setTimeout(function () {
+          _reactNative.ToastAndroid.show('teste bt', _reactNative.ToastAndroid.SHORT);
+        }, 5000);
+      }
+    }, {
+      key: "dipositivos",
+      value: function dipositivos() {
+        var _this3 = this;
+
+        this.manager.devices([]).then(function (device) {
+          _this3.devices.push(device);
+
+          console.log('>> devices');
+          console.log(JSON.stringify(_this3.devices));
+        });
+      }
+    }, {
+      key: "scanAndConnect",
+      value: function scanAndConnect() {
+        var _this4 = this;
+
+        _reactNative.ToastAndroid.show('Scanning...', _reactNative.ToastAndroid.SHORT);
+
+        this.cont = 0;
+        this.manager.startDeviceScan(null, null, function (error, device) {
+          if (error) {
+            console.log(error);
+
+            if (error.errorCode == 102) {
+              _reactNative.Alert.alert('Bluetooth desativado, favor ativar.');
+            } else {
+              _reactNative.Alert.alert('Erro: ' + error.errorCode + ' ' + error.message);
+            }
+
+            return;
+          }
+
+          console.log(device);
+
+          if (device.name !== null || device.localName !== null) {
+            _this4.devices.push(device);
+          }
+
+          _this4.cont++;
+
+          if (_this4.cont === 10) {
+            console.log('>>> scan stopping');
+
+            _this4.manager.stopDeviceScan();
+
+            console.log('>>> scan stopped');
+            console.log('>>> devices');
+            console.log(_this4.devices);
+            _this4.cont = 0;
+
+            _reactNative.ToastAndroid.show('scan stopped', _reactNative.ToastAndroid.SHORT);
+          }
+
+          if (device.name === 'TI BLE Sensor Tag' || device.name === 'SensorTag') {
+              _this4.manager.stopDeviceScan();
+
+              console.log('>> scan stop');
+              console.log('Dispositivo: ' + device);
+
+              _this4.connect();
+            }
+        });
+      }
+    }, {
+      key: "connect",
+      value: function connect() {
+        device.connect().then(function (device) {
+          return device.discoverAllServicesAndCharacteristics();
+        }).then(function (device) {
+          _reactNative.ToastAndroid.show('Dispositivo conectado: ' + device.name, _reactNative.ToastAndroid.LONG);
+
+          console.log('Dispositivo conectado: ' + device.name);
+        }).catch(function (error) {
+          _reactNative.ToastAndroid.show(error, _reactNative.ToastAndroid.LONG);
+
+          console.log(error);
+        });
+      }
+    }]);
+    return Bluetooth;
+  }(_react.Component);
+
+  exports.default = Bluetooth;
+},599,[3,1,4,5,6,9,10,12,600,173],"components\\Bluetooth.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, "BleError", {
+    enumerable: true,
+    get: function get() {
+      return _BleError.BleError;
+    }
+  });
+  Object.defineProperty(exports, "BleErrorCode", {
+    enumerable: true,
+    get: function get() {
+      return _BleError.BleErrorCode;
+    }
+  });
+  Object.defineProperty(exports, "BleAndroidErrorCode", {
+    enumerable: true,
+    get: function get() {
+      return _BleError.BleAndroidErrorCode;
+    }
+  });
+  Object.defineProperty(exports, "BleIOSErrorCode", {
+    enumerable: true,
+    get: function get() {
+      return _BleError.BleIOSErrorCode;
+    }
+  });
+  Object.defineProperty(exports, "BleATTErrorCode", {
+    enumerable: true,
+    get: function get() {
+      return _BleError.BleATTErrorCode;
+    }
+  });
+  Object.defineProperty(exports, "BleManager", {
+    enumerable: true,
+    get: function get() {
+      return _BleManager.BleManager;
+    }
+  });
+  Object.defineProperty(exports, "Device", {
+    enumerable: true,
+    get: function get() {
+      return _Device.Device;
+    }
+  });
+  Object.defineProperty(exports, "Service", {
+    enumerable: true,
+    get: function get() {
+      return _Service.Service;
+    }
+  });
+  Object.defineProperty(exports, "Characteristic", {
+    enumerable: true,
+    get: function get() {
+      return _Characteristic.Characteristic;
+    }
+  });
+  Object.defineProperty(exports, "fullUUID", {
+    enumerable: true,
+    get: function get() {
+      return _Utils.fullUUID;
+    }
+  });
+  Object.defineProperty(exports, "State", {
+    enumerable: true,
+    get: function get() {
+      return _TypeDefinition.State;
+    }
+  });
+  Object.defineProperty(exports, "LogLevel", {
+    enumerable: true,
+    get: function get() {
+      return _TypeDefinition.LogLevel;
+    }
+  });
+  Object.defineProperty(exports, "ConnectionPriority", {
+    enumerable: true,
+    get: function get() {
+      return _TypeDefinition.ConnectionPriority;
+    }
+  });
+  Object.defineProperty(exports, "ScanCallbackType", {
+    enumerable: true,
+    get: function get() {
+      return _TypeDefinition.ScanCallbackType;
+    }
+  });
+  Object.defineProperty(exports, "ScanMode", {
+    enumerable: true,
+    get: function get() {
+      return _TypeDefinition.ScanMode;
+    }
+  });
+
+  var _BleError = _$$_REQUIRE(_dependencyMap[0], "./src/BleError");
+
+  var _BleManager = _$$_REQUIRE(_dependencyMap[1], "./src/BleManager");
+
+  var _Device = _$$_REQUIRE(_dependencyMap[2], "./src/Device");
+
+  var _Service = _$$_REQUIRE(_dependencyMap[3], "./src/Service");
+
+  var _Characteristic = _$$_REQUIRE(_dependencyMap[4], "./src/Characteristic");
+
+  var _Utils = _$$_REQUIRE(_dependencyMap[5], "./src/Utils");
+
+  var _TypeDefinition = _$$_REQUIRE(_dependencyMap[6], "./src/TypeDefinition");
+},600,[601,606,607,609,610,605,608],"node_modules\\react-native-ble-plx\\index.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.parseBleError = parseBleError;
+  exports.BleAndroidErrorCode = exports.BleIOSErrorCode = exports.BleATTErrorCode = exports.BleErrorCodeMessage = exports.BleErrorCode = exports.BleError = void 0;
+
+  var _defineProperty2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/defineProperty"));
+
+  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/helpers/classCallCheck"));
+
+  var _possibleConstructorReturn2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3], "@babel/runtime/helpers/possibleConstructorReturn"));
+
+  var _getPrototypeOf2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[4], "@babel/runtime/helpers/getPrototypeOf"));
+
+  var _inherits2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[5], "@babel/runtime/helpers/inherits"));
+
+  var _wrapNativeSuper2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[6], "@babel/runtime/helpers/wrapNativeSuper"));
+
+  var _Utils = _$$_REQUIRE(_dependencyMap[7], "./Utils");
+
+  var _BleErrorCodeMessage;
+
+  var BleError = function (_Error) {
+    (0, _inherits2.default)(BleError, _Error);
+
+    function BleError(nativeBleError, errorMessageMapping) {
+      var _this;
+
+      (0, _classCallCheck2.default)(this, BleError);
+      _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(BleError).call(this));
+      _this.message = errorMessageMapping[BleErrorCode.UnknownError];
+
+      if (typeof nativeBleError === 'string') {
+        _this.errorCode = BleErrorCode.UnknownError;
+        _this.attErrorCode = null;
+        _this.iosErrorCode = null;
+        _this.androidErrorCode = null;
+        _this.reason = nativeBleError;
+      } else {
+        var message = errorMessageMapping[nativeBleError.errorCode];
+
+        if (message) {
+          _this.message = (0, _Utils.fillStringWithArguments)(message, nativeBleError);
+        }
+
+        _this.errorCode = nativeBleError.errorCode;
+        _this.attErrorCode = nativeBleError.attErrorCode;
+        _this.iosErrorCode = nativeBleError.iosErrorCode;
+        _this.androidErrorCode = nativeBleError.androidErrorCode;
+        _this.reason = nativeBleError.reason;
+      }
+
+      _this.name = 'BleError';
+      return _this;
+    }
+
+    return BleError;
+  }((0, _wrapNativeSuper2.default)(Error));
+
+  exports.BleError = BleError;
+
+  function parseBleError(errorMessage, errorMessageMapping) {
+    var bleError;
+    var errorMapping = errorMessageMapping ? errorMessageMapping : BleErrorCodeMessage;
+
+    try {
+      var nativeBleError = JSON.parse(errorMessage);
+      bleError = new BleError(nativeBleError, errorMapping);
+    } catch (parseError) {
+      bleError = new BleError(errorMessage, errorMapping);
+    }
+
+    return bleError;
+  }
+
+  var BleErrorCode = {
+    UnknownError: 0,
+    BluetoothManagerDestroyed: 1,
+    OperationCancelled: 2,
+    OperationTimedOut: 3,
+    OperationStartFailed: 4,
+    InvalidIdentifiers: 5,
+    BluetoothUnsupported: 100,
+    BluetoothUnauthorized: 101,
+    BluetoothPoweredOff: 102,
+    BluetoothInUnknownState: 103,
+    BluetoothResetting: 104,
+    BluetoothStateChangeFailed: 105,
+    DeviceConnectionFailed: 200,
+    DeviceDisconnected: 201,
+    DeviceRSSIReadFailed: 202,
+    DeviceAlreadyConnected: 203,
+    DeviceNotFound: 204,
+    DeviceNotConnected: 205,
+    DeviceMTUChangeFailed: 206,
+    ServicesDiscoveryFailed: 300,
+    IncludedServicesDiscoveryFailed: 301,
+    ServiceNotFound: 302,
+    ServicesNotDiscovered: 303,
+    CharacteristicsDiscoveryFailed: 400,
+    CharacteristicWriteFailed: 401,
+    CharacteristicReadFailed: 402,
+    CharacteristicNotifyChangeFailed: 403,
+    CharacteristicNotFound: 404,
+    CharacteristicsNotDiscovered: 405,
+    CharacteristicInvalidDataFormat: 406,
+    DescriptorsDiscoveryFailed: 500,
+    DescriptorWriteFailed: 501,
+    DescriptorReadFailed: 502,
+    DescriptorNotFound: 503,
+    DescriptorsNotDiscovered: 504,
+    DescriptorInvalidDataFormat: 505,
+    ScanStartFailed: 600,
+    LocationServicesDisabled: 601
+  };
+  exports.BleErrorCode = BleErrorCode;
+  var BleErrorCodeMessage = (_BleErrorCodeMessage = {}, (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.UnknownError, 'Unknown error occurred. This is probably a bug! Check reason property.'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.BluetoothManagerDestroyed, 'BleManager was destroyed'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.OperationCancelled, 'Operation was cancelled'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.OperationTimedOut, 'Operation timed out'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.OperationStartFailed, 'Operation was rejected'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.InvalidIdentifiers, 'Invalid UUIDs or IDs were passed: {internalMessage}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.BluetoothUnsupported, 'BluetoothLE is unsupported on this device'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.BluetoothUnauthorized, 'Device is not authorized to use BluetoothLE'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.BluetoothPoweredOff, 'BluetoothLE is powered off'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.BluetoothInUnknownState, 'BluetoothLE is in unknown state'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.BluetoothResetting, 'BluetoothLE is resetting'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.BluetoothStateChangeFailed, 'Bluetooth state change failed'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DeviceConnectionFailed, 'Device {deviceID} connection failed'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DeviceDisconnected, 'Device {deviceID} was disconnected'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DeviceRSSIReadFailed, 'RSSI read failed for device {deviceID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DeviceAlreadyConnected, 'Device {deviceID} is already connected'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DeviceNotFound, 'Device {deviceID} not found'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DeviceNotConnected, 'Device {deviceID} is not connected'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DeviceMTUChangeFailed, 'Device {deviceID} could not change MTU size'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.ServicesDiscoveryFailed, 'Services discovery failed for device {deviceID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.IncludedServicesDiscoveryFailed, 'Included services discovery failed for device {deviceID} and service: {serviceUUID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.ServiceNotFound, 'Service {serviceUUID} for device {deviceID} not found'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.ServicesNotDiscovered, 'Services not discovered for device {deviceID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.CharacteristicsDiscoveryFailed, 'Characteristic discovery failed for device {deviceID} and service {serviceUUID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.CharacteristicWriteFailed, 'Characteristic {characteristicUUID} write failed for device {deviceID} and service {serviceUUID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.CharacteristicReadFailed, 'Characteristic {characteristicUUID} read failed for device {deviceID} and service {serviceUUID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.CharacteristicNotifyChangeFailed, 'Characteristic {characteristicUUID} notify change failed for device {deviceID} and service {serviceUUID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.CharacteristicNotFound, 'Characteristic {characteristicUUID} not found'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.CharacteristicsNotDiscovered, 'Characteristics not discovered for device {deviceID} and service {serviceUUID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.CharacteristicInvalidDataFormat, 'Cannot write to characteristic {characteristicUUID} with invalid data format: {internalMessage}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DescriptorsDiscoveryFailed, 'Descriptor {descriptorUUID} discovery failed for device {deviceID}, service {serviceUUID} and characteristic {characteristicUUID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DescriptorWriteFailed, 'Descriptor {descriptorUUID} write failed for device {deviceID}, service {serviceUUID} and characteristic {characteristicUUID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DescriptorReadFailed, 'Descriptor {descriptorUUID} read failed for device {deviceID}, service {serviceUUID} and characteristic {characteristicUUID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DescriptorNotFound, 'Descriptor {descriptorUUID} not found'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DescriptorsNotDiscovered, 'Descriptors not discovered for device {deviceID}, service {serviceUUID} and characteristic {characteristicUUID}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.DescriptorInvalidDataFormat, 'Cannot write to descriptor {descriptorUUID} with invalid data format: {internalMessage}'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.ScanStartFailed, 'Cannot start scanning operation'), (0, _defineProperty2.default)(_BleErrorCodeMessage, BleErrorCode.LocationServicesDisabled, 'Location services are disabled'), _BleErrorCodeMessage);
+  exports.BleErrorCodeMessage = BleErrorCodeMessage;
+  var BleATTErrorCode = {
+    Success: 0,
+    InvalidHandle: 1,
+    ReadNotPermitted: 2,
+    WriteNotPermitted: 3,
+    InvalidPdu: 4,
+    InsufficientAuthentication: 5,
+    RequestNotSupported: 6,
+    InvalidOffset: 7,
+    InsufficientAuthorization: 8,
+    PrepareQueueFull: 9,
+    AttributeNotFound: 10,
+    AttributeNotLong: 11,
+    InsufficientEncryptionKeySize: 12,
+    InvalidAttributeValueLength: 13,
+    UnlikelyError: 14,
+    InsufficientEncryption: 15,
+    UnsupportedGroupType: 16,
+    InsufficientResources: 17
+  };
+  exports.BleATTErrorCode = BleATTErrorCode;
+  var BleIOSErrorCode = {
+    Unknown: 0,
+    InvalidParameters: 1,
+    InvalidHandle: 2,
+    NotConnected: 3,
+    OutOfSpace: 4,
+    OperationCancelled: 5,
+    ConnectionTimeout: 6,
+    PeripheralDisconnected: 7,
+    UuidNotAllowed: 8,
+    AlreadyAdvertising: 9,
+    ConnectionFailed: 10,
+    ConnectionLimitReached: 11,
+    UnknownDevice: 12
+  };
+  exports.BleIOSErrorCode = BleIOSErrorCode;
+  var BleAndroidErrorCode = {
+    NoResources: 0x80,
+    InternalError: 0x81,
+    WrongState: 0x82,
+    DbFull: 0x83,
+    Busy: 0x84,
+    Error: 0x85,
+    CmdStarted: 0x86,
+    IllegalParameter: 0x87,
+    Pending: 0x88,
+    AuthFail: 0x89,
+    More: 0x8a,
+    InvalidCfg: 0x8b,
+    ServiceStarted: 0x8c,
+    EncrypedNoMitm: 0x8d,
+    NotEncrypted: 0x8e,
+    Congested: 0x8f
+  };
+  exports.BleAndroidErrorCode = BleAndroidErrorCode;
+},601,[1,209,4,6,9,10,602,605],"node_modules\\react-native-ble-plx\\src\\BleError.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  var getPrototypeOf = _$$_REQUIRE(_dependencyMap[0], "./getPrototypeOf");
+
+  var setPrototypeOf = _$$_REQUIRE(_dependencyMap[1], "./setPrototypeOf");
+
+  var isNativeFunction = _$$_REQUIRE(_dependencyMap[2], "./isNativeFunction");
+
+  var construct = _$$_REQUIRE(_dependencyMap[3], "./construct");
+
+  function _wrapNativeSuper(Class) {
+    var _cache = typeof Map === "function" ? new Map() : undefined;
+
+    module.exports = _wrapNativeSuper = function _wrapNativeSuper(Class) {
+      if (Class === null || !isNativeFunction(Class)) return Class;
+
+      if (typeof Class !== "function") {
+        throw new TypeError("Super expression must either be null or a function");
+      }
+
+      if (typeof _cache !== "undefined") {
+        if (_cache.has(Class)) return _cache.get(Class);
+
+        _cache.set(Class, Wrapper);
+      }
+
+      function Wrapper() {
+        return construct(Class, arguments, getPrototypeOf(this).constructor);
+      }
+
+      Wrapper.prototype = Object.create(Class.prototype, {
+        constructor: {
+          value: Wrapper,
+          enumerable: false,
+          writable: true,
+          configurable: true
+        }
+      });
+      return setPrototypeOf(Wrapper, Class);
+    };
+
+    return _wrapNativeSuper(Class);
+  }
+
+  module.exports = _wrapNativeSuper;
+},602,[9,11,603,604],"node_modules\\@babel\\runtime\\helpers\\wrapNativeSuper.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  function _isNativeFunction(fn) {
+    return Function.toString.call(fn).indexOf("[native code]") !== -1;
+  }
+
+  module.exports = _isNativeFunction;
+},603,[],"node_modules\\@babel\\runtime\\helpers\\isNativeFunction.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  var setPrototypeOf = _$$_REQUIRE(_dependencyMap[0], "./setPrototypeOf");
+
+  function isNativeReflectConstruct() {
+    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+    if (Reflect.construct.sham) return false;
+    if (typeof Proxy === "function") return true;
+
+    try {
+      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function _construct(Parent, args, Class) {
+    if (isNativeReflectConstruct()) {
+      module.exports = _construct = Reflect.construct;
+    } else {
+      module.exports = _construct = function _construct(Parent, args, Class) {
+        var a = [null];
+        a.push.apply(a, args);
+        var Constructor = Function.bind.apply(Parent, a);
+        var instance = new Constructor();
+        if (Class) setPrototypeOf(instance, Class.prototype);
+        return instance;
+      };
+    }
+
+    return _construct.apply(null, arguments);
+  }
+
+  module.exports = _construct;
+},604,[11],"node_modules\\@babel\\runtime\\helpers\\construct.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.fullUUID = fullUUID;
+  exports.fillStringWithArguments = fillStringWithArguments;
+
+  function fullUUID(uuid) {
+    if (uuid.length === 4) return '0000' + uuid.toLowerCase() + '-0000-1000-8000-00805f9b34fb';
+    if (uuid.length === 8) return uuid.toLowerCase() + '-0000-1000-8000-00805f9b34fb';
+    return uuid.toLowerCase();
+  }
+
+  function fillStringWithArguments(value, object) {
+    return value.replace(/\{([^}]+)\}/g, function (_, arg) {
+      return object[arg] || '?';
+    });
+  }
+},605,[],"node_modules\\react-native-ble-plx\\src\\Utils.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.BleManager = void 0;
+
+  var _slicedToArray2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/slicedToArray"));
+
+  var _regenerator = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/regenerator"));
+
+  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3], "@babel/runtime/helpers/classCallCheck"));
+
+  var _createClass2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[4], "@babel/runtime/helpers/createClass"));
+
+  var _Device = _$$_REQUIRE(_dependencyMap[5], "./Device");
+
+  var _Service = _$$_REQUIRE(_dependencyMap[6], "./Service");
+
+  var _Characteristic = _$$_REQUIRE(_dependencyMap[7], "./Characteristic");
+
+  var _TypeDefinition = _$$_REQUIRE(_dependencyMap[8], "./TypeDefinition");
+
+  var _BleModule = _$$_REQUIRE(_dependencyMap[9], "./BleModule");
+
+  var _BleError = _$$_REQUIRE(_dependencyMap[10], "./BleError");
+
+  var BleManager = function () {
+    function BleManager() {
+      var _this = this;
+
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      (0, _classCallCheck2.default)(this, BleManager);
+      this._eventEmitter = new _BleModule.EventEmitter(_BleModule.BleModule);
+      this._uniqueId = 0;
+      this._activePromises = {};
+      this._activeSubscriptions = {};
+      var restoreStateFunction = options.restoreStateFunction;
+
+      if (restoreStateFunction != null && options.restoreStateIdentifier != null) {
+        this._activeSubscriptions[this._nextUniqueID()] = this._eventEmitter.addListener(_BleModule.BleModule.RestoreStateEvent, function (nativeRestoredState) {
+          if (nativeRestoredState == null) {
+            restoreStateFunction(null);
+            return;
+          }
+
+          restoreStateFunction({
+            connectedPeripherals: nativeRestoredState.connectedPeripherals.map(function (nativeDevice) {
+              return new _Device.Device(nativeDevice, _this);
+            })
+          });
+        });
+      }
+
+      this._errorCodesToMessagesMapping = options.errorCodesToMessagesMapping ? options.errorCodesToMessagesMapping : _BleError.BleErrorCodeMessage;
+
+      _BleModule.BleModule.createClient(options.restoreStateIdentifier || null);
+    }
+
+    (0, _createClass2.default)(BleManager, [{
+      key: "_destroyPromises",
+      value: function _destroyPromises() {
+        var destroyedError = new _BleError.BleError({
+          errorCode: _BleError.BleErrorCode.BluetoothManagerDestroyed,
+          attErrorCode: null,
+          iosErrorCode: null,
+          androidErrorCode: null,
+          reason: null
+        }, this._errorCodesToMessagesMapping);
+
+        for (var _id in this._activePromises) {
+          this._activePromises[_id](destroyedError);
+        }
+      }
+    }, {
+      key: "_destroySubscriptions",
+      value: function _destroySubscriptions() {
+        for (var _id2 in this._activeSubscriptions) {
+          this._activeSubscriptions[_id2].remove();
+        }
+      }
+    }, {
+      key: "destroy",
+      value: function destroy() {
+        _BleModule.BleModule.destroyClient();
+
+        if (this._scanEventSubscription != null) {
+          this._scanEventSubscription.remove();
+
+          this._scanEventSubscription = null;
+        }
+
+        this._destroySubscriptions();
+
+        this._destroyPromises();
+      }
+    }, {
+      key: "_nextUniqueID",
+      value: function _nextUniqueID() {
+        this._uniqueId += 1;
+        return this._uniqueId.toString();
+      }
+    }, {
+      key: "_callPromise",
+      value: function _callPromise(promise) {
+        var _this2 = this;
+
+        var id, destroyPromise, value;
+        return _regenerator.default.async(function _callPromise$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                id = this._nextUniqueID();
+                _context.prev = 1;
+                destroyPromise = new Promise(function (resolve, reject) {
+                  _this2._activePromises[id] = reject;
+                });
+                _context.next = 5;
+                return _regenerator.default.awrap(Promise.race([destroyPromise, promise]));
+
+              case 5:
+                value = _context.sent;
+                delete this._activePromises[id];
+                return _context.abrupt("return", value);
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](1);
+                delete this._activePromises[id];
+                throw (0, _BleError.parseBleError)(_context.t0.message, this._errorCodesToMessagesMapping);
+
+              case 14:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, null, this, [[1, 10]]);
+      }
+    }, {
+      key: "setLogLevel",
+      value: function setLogLevel(logLevel) {
+        _BleModule.BleModule.setLogLevel(logLevel);
+      }
+    }, {
+      key: "logLevel",
+      value: function logLevel() {
+        return this._callPromise(_BleModule.BleModule.logLevel());
+      }
+    }, {
+      key: "cancelTransaction",
+      value: function cancelTransaction(transactionId) {
+        _BleModule.BleModule.cancelTransaction(transactionId);
+      }
+    }, {
+      key: "enable",
+      value: function enable(transactionId) {
+        return _regenerator.default.async(function enable$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context2.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.enable(transactionId)));
+
+              case 3:
+                return _context2.abrupt("return", this);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "disable",
+      value: function disable(transactionId) {
+        return _regenerator.default.async(function disable$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context3.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.disable(transactionId)));
+
+              case 3:
+                return _context3.abrupt("return", this);
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "state",
+      value: function state() {
+        return this._callPromise(_BleModule.BleModule.state());
+      }
+    }, {
+      key: "onStateChange",
+      value: function onStateChange(listener) {
+        var _this3 = this;
+
+        var emitCurrentState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+        var subscription = this._eventEmitter.addListener(_BleModule.BleModule.StateChangeEvent, listener);
+
+        var id = this._nextUniqueID();
+
+        var wrappedSubscription;
+
+        if (emitCurrentState) {
+          var cancelled = false;
+
+          this._callPromise(this.state()).then(function (currentState) {
+            if (!cancelled) {
+              listener(currentState);
+            }
+          });
+
+          wrappedSubscription = {
+            remove: function remove() {
+              if (_this3._activeSubscriptions[id] != null) {
+                cancelled = true;
+                delete _this3._activeSubscriptions[id];
+                subscription.remove();
+              }
+            }
+          };
+        } else {
+          wrappedSubscription = {
+            remove: function remove() {
+              if (_this3._activeSubscriptions[id] != null) {
+                delete _this3._activeSubscriptions[id];
+                subscription.remove();
+              }
+            }
+          };
+        }
+
+        this._activeSubscriptions[id] = wrappedSubscription;
+        return wrappedSubscription;
+      }
+    }, {
+      key: "startDeviceScan",
+      value: function startDeviceScan(UUIDs, options, listener) {
+        var _this4 = this;
+
+        this.stopDeviceScan();
+
+        var scanListener = function scanListener(_ref) {
+          var _ref2 = (0, _slicedToArray2.default)(_ref, 2),
+              error = _ref2[0],
+              nativeDevice = _ref2[1];
+
+          listener(error ? (0, _BleError.parseBleError)(error, _this4._errorCodesToMessagesMapping) : null, nativeDevice ? new _Device.Device(nativeDevice, _this4) : null);
+        };
+
+        this._scanEventSubscription = this._eventEmitter.addListener(_BleModule.BleModule.ScanEvent, scanListener);
+
+        _BleModule.BleModule.startDeviceScan(UUIDs, options);
+      }
+    }, {
+      key: "stopDeviceScan",
+      value: function stopDeviceScan() {
+        if (this._scanEventSubscription != null) {
+          this._scanEventSubscription.remove();
+
+          this._scanEventSubscription = null;
+        }
+
+        _BleModule.BleModule.stopDeviceScan();
+      }
+    }, {
+      key: "requestConnectionPriorityForDevice",
+      value: function requestConnectionPriorityForDevice(deviceIdentifier, connectionPriority, transactionId) {
+        var nativeDevice;
+        return _regenerator.default.async(function requestConnectionPriorityForDevice$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context4.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.requestConnectionPriorityForDevice(deviceIdentifier, connectionPriority, transactionId)));
+
+              case 3:
+                nativeDevice = _context4.sent;
+                return _context4.abrupt("return", new _Device.Device(nativeDevice, this));
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "readRSSIForDevice",
+      value: function readRSSIForDevice(deviceIdentifier, transactionId) {
+        var nativeDevice;
+        return _regenerator.default.async(function readRSSIForDevice$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context5.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.readRSSIForDevice(deviceIdentifier, transactionId)));
+
+              case 3:
+                nativeDevice = _context5.sent;
+                return _context5.abrupt("return", new _Device.Device(nativeDevice, this));
+
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "requestMTUForDevice",
+      value: function requestMTUForDevice(deviceIdentifier, mtu, transactionId) {
+        var nativeDevice;
+        return _regenerator.default.async(function requestMTUForDevice$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context6.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.requestMTUForDevice(deviceIdentifier, mtu, transactionId)));
+
+              case 3:
+                nativeDevice = _context6.sent;
+                return _context6.abrupt("return", new _Device.Device(nativeDevice, this));
+
+              case 5:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "devices",
+      value: function devices(deviceIdentifiers) {
+        var _this5 = this;
+
+        var nativeDevices;
+        return _regenerator.default.async(function devices$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.devices(deviceIdentifiers)));
+
+              case 2:
+                nativeDevices = _context7.sent;
+                return _context7.abrupt("return", nativeDevices.map(function (nativeDevice) {
+                  return new _Device.Device(nativeDevice, _this5);
+                }));
+
+              case 4:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "connectedDevices",
+      value: function connectedDevices(serviceUUIDs) {
+        var _this6 = this;
+
+        var nativeDevices;
+        return _regenerator.default.async(function connectedDevices$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.connectedDevices(serviceUUIDs)));
+
+              case 2:
+                nativeDevices = _context8.sent;
+                return _context8.abrupt("return", nativeDevices.map(function (nativeDevice) {
+                  return new _Device.Device(nativeDevice, _this6);
+                }));
+
+              case 4:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "connectToDevice",
+      value: function connectToDevice(deviceIdentifier, options) {
+        var nativeDevice;
+        return _regenerator.default.async(function connectToDevice$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                _context9.next = 2;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.connectToDevice(deviceIdentifier, options)));
+
+              case 2:
+                nativeDevice = _context9.sent;
+                return _context9.abrupt("return", new _Device.Device(nativeDevice, this));
+
+              case 4:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "cancelDeviceConnection",
+      value: function cancelDeviceConnection(deviceIdentifier) {
+        var nativeDevice;
+        return _regenerator.default.async(function cancelDeviceConnection$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                _context10.next = 2;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.cancelDeviceConnection(deviceIdentifier)));
+
+              case 2:
+                nativeDevice = _context10.sent;
+                return _context10.abrupt("return", new _Device.Device(nativeDevice, this));
+
+              case 4:
+              case "end":
+                return _context10.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "onDeviceDisconnected",
+      value: function onDeviceDisconnected(deviceIdentifier, listener) {
+        var _this7 = this;
+
+        var disconnectionListener = function disconnectionListener(_ref3) {
+          var _ref4 = (0, _slicedToArray2.default)(_ref3, 2),
+              error = _ref4[0],
+              nativeDevice = _ref4[1];
+
+          if (deviceIdentifier !== nativeDevice.id) return;
+          listener(error ? (0, _BleError.parseBleError)(error, _this7._errorCodesToMessagesMapping) : null, new _Device.Device(nativeDevice, _this7));
+        };
+
+        var subscription = this._eventEmitter.addListener(_BleModule.BleModule.DisconnectionEvent, disconnectionListener);
+
+        var id = this._nextUniqueID();
+
+        var wrappedSubscription = {
+          remove: function remove() {
+            if (_this7._activeSubscriptions[id] != null) {
+              delete _this7._activeSubscriptions[id];
+              subscription.remove();
+            }
+          }
+        };
+        this._activeSubscriptions[id] = wrappedSubscription;
+        return wrappedSubscription;
+      }
+    }, {
+      key: "isDeviceConnected",
+      value: function isDeviceConnected(deviceIdentifier) {
+        return this._callPromise(_BleModule.BleModule.isDeviceConnected(deviceIdentifier));
+      }
+    }, {
+      key: "discoverAllServicesAndCharacteristicsForDevice",
+      value: function discoverAllServicesAndCharacteristicsForDevice(deviceIdentifier, transactionId) {
+        var nativeDevice;
+        return _regenerator.default.async(function discoverAllServicesAndCharacteristicsForDevice$(_context11) {
+          while (1) {
+            switch (_context11.prev = _context11.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context11.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.discoverAllServicesAndCharacteristicsForDevice(deviceIdentifier, transactionId)));
+
+              case 3:
+                nativeDevice = _context11.sent;
+                return _context11.abrupt("return", new _Device.Device(nativeDevice, this));
+
+              case 5:
+              case "end":
+                return _context11.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "servicesForDevice",
+      value: function servicesForDevice(deviceIdentifier) {
+        var _this8 = this;
+
+        var services;
+        return _regenerator.default.async(function servicesForDevice$(_context12) {
+          while (1) {
+            switch (_context12.prev = _context12.next) {
+              case 0:
+                _context12.next = 2;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.servicesForDevice(deviceIdentifier)));
+
+              case 2:
+                services = _context12.sent;
+                return _context12.abrupt("return", services.map(function (nativeService) {
+                  return new _Service.Service(nativeService, _this8);
+                }));
+
+              case 4:
+              case "end":
+                return _context12.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "characteristicsForDevice",
+      value: function characteristicsForDevice(deviceIdentifier, serviceUUID) {
+        return this._handleCharacteristics(_BleModule.BleModule.characteristicsForDevice(deviceIdentifier, serviceUUID));
+      }
+    }, {
+      key: "_characteristicsForService",
+      value: function _characteristicsForService(serviceIdentifier) {
+        return this._handleCharacteristics(_BleModule.BleModule.characteristicsForService(serviceIdentifier));
+      }
+    }, {
+      key: "_handleCharacteristics",
+      value: function _handleCharacteristics(characteristicsPromise) {
+        var _this9 = this;
+
+        var characteristics;
+        return _regenerator.default.async(function _handleCharacteristics$(_context13) {
+          while (1) {
+            switch (_context13.prev = _context13.next) {
+              case 0:
+                _context13.next = 2;
+                return _regenerator.default.awrap(this._callPromise(characteristicsPromise));
+
+              case 2:
+                characteristics = _context13.sent;
+                return _context13.abrupt("return", characteristics.map(function (nativeCharacteristic) {
+                  return new _Characteristic.Characteristic(nativeCharacteristic, _this9);
+                }));
+
+              case 4:
+              case "end":
+                return _context13.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "readCharacteristicForDevice",
+      value: function readCharacteristicForDevice(deviceIdentifier, serviceUUID, characteristicUUID, transactionId) {
+        var nativeCharacteristic;
+        return _regenerator.default.async(function readCharacteristicForDevice$(_context14) {
+          while (1) {
+            switch (_context14.prev = _context14.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context14.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.readCharacteristicForDevice(deviceIdentifier, serviceUUID, characteristicUUID, transactionId)));
+
+              case 3:
+                nativeCharacteristic = _context14.sent;
+                return _context14.abrupt("return", new _Characteristic.Characteristic(nativeCharacteristic, this));
+
+              case 5:
+              case "end":
+                return _context14.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "_readCharacteristicForService",
+      value: function _readCharacteristicForService(serviceIdentifier, characteristicUUID, transactionId) {
+        var nativeCharacteristic;
+        return _regenerator.default.async(function _readCharacteristicForService$(_context15) {
+          while (1) {
+            switch (_context15.prev = _context15.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context15.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.readCharacteristicForService(serviceIdentifier, characteristicUUID, transactionId)));
+
+              case 3:
+                nativeCharacteristic = _context15.sent;
+                return _context15.abrupt("return", new _Characteristic.Characteristic(nativeCharacteristic, this));
+
+              case 5:
+              case "end":
+                return _context15.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "_readCharacteristic",
+      value: function _readCharacteristic(characteristicIdentifier, transactionId) {
+        var nativeCharacteristic;
+        return _regenerator.default.async(function _readCharacteristic$(_context16) {
+          while (1) {
+            switch (_context16.prev = _context16.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context16.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.readCharacteristic(characteristicIdentifier, transactionId)));
+
+              case 3:
+                nativeCharacteristic = _context16.sent;
+                return _context16.abrupt("return", new _Characteristic.Characteristic(nativeCharacteristic, this));
+
+              case 5:
+              case "end":
+                return _context16.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "writeCharacteristicWithResponseForDevice",
+      value: function writeCharacteristicWithResponseForDevice(deviceIdentifier, serviceUUID, characteristicUUID, base64Value, transactionId) {
+        var nativeCharacteristic;
+        return _regenerator.default.async(function writeCharacteristicWithResponseForDevice$(_context17) {
+          while (1) {
+            switch (_context17.prev = _context17.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context17.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.writeCharacteristicForDevice(deviceIdentifier, serviceUUID, characteristicUUID, base64Value, true, transactionId)));
+
+              case 3:
+                nativeCharacteristic = _context17.sent;
+                return _context17.abrupt("return", new _Characteristic.Characteristic(nativeCharacteristic, this));
+
+              case 5:
+              case "end":
+                return _context17.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "_writeCharacteristicWithResponseForService",
+      value: function _writeCharacteristicWithResponseForService(serviceIdentifier, characteristicUUID, base64Value, transactionId) {
+        var nativeCharacteristic;
+        return _regenerator.default.async(function _writeCharacteristicWithResponseForService$(_context18) {
+          while (1) {
+            switch (_context18.prev = _context18.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context18.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.writeCharacteristicForService(serviceIdentifier, characteristicUUID, base64Value, true, transactionId)));
+
+              case 3:
+                nativeCharacteristic = _context18.sent;
+                return _context18.abrupt("return", new _Characteristic.Characteristic(nativeCharacteristic, this));
+
+              case 5:
+              case "end":
+                return _context18.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "_writeCharacteristicWithResponse",
+      value: function _writeCharacteristicWithResponse(characteristicIdentifier, base64Value, transactionId) {
+        var nativeCharacteristic;
+        return _regenerator.default.async(function _writeCharacteristicWithResponse$(_context19) {
+          while (1) {
+            switch (_context19.prev = _context19.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context19.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.writeCharacteristic(characteristicIdentifier, base64Value, true, transactionId)));
+
+              case 3:
+                nativeCharacteristic = _context19.sent;
+                return _context19.abrupt("return", new _Characteristic.Characteristic(nativeCharacteristic, this));
+
+              case 5:
+              case "end":
+                return _context19.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "writeCharacteristicWithoutResponseForDevice",
+      value: function writeCharacteristicWithoutResponseForDevice(deviceIdentifier, serviceUUID, characteristicUUID, base64Value, transactionId) {
+        var nativeCharacteristic;
+        return _regenerator.default.async(function writeCharacteristicWithoutResponseForDevice$(_context20) {
+          while (1) {
+            switch (_context20.prev = _context20.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context20.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.writeCharacteristicForDevice(deviceIdentifier, serviceUUID, characteristicUUID, base64Value, false, transactionId)));
+
+              case 3:
+                nativeCharacteristic = _context20.sent;
+                return _context20.abrupt("return", new _Characteristic.Characteristic(nativeCharacteristic, this));
+
+              case 5:
+              case "end":
+                return _context20.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "_writeCharacteristicWithoutResponseForService",
+      value: function _writeCharacteristicWithoutResponseForService(serviceIdentifier, characteristicUUID, base64Value, transactionId) {
+        var nativeCharacteristic;
+        return _regenerator.default.async(function _writeCharacteristicWithoutResponseForService$(_context21) {
+          while (1) {
+            switch (_context21.prev = _context21.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context21.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.writeCharacteristicForService(serviceIdentifier, characteristicUUID, base64Value, false, transactionId)));
+
+              case 3:
+                nativeCharacteristic = _context21.sent;
+                return _context21.abrupt("return", new _Characteristic.Characteristic(nativeCharacteristic, this));
+
+              case 5:
+              case "end":
+                return _context21.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "_writeCharacteristicWithoutResponse",
+      value: function _writeCharacteristicWithoutResponse(characteristicIdentifier, base64Value, transactionId) {
+        var nativeCharacteristic;
+        return _regenerator.default.async(function _writeCharacteristicWithoutResponse$(_context22) {
+          while (1) {
+            switch (_context22.prev = _context22.next) {
+              case 0:
+                if (!transactionId) {
+                  transactionId = this._nextUniqueID();
+                }
+
+                _context22.next = 3;
+                return _regenerator.default.awrap(this._callPromise(_BleModule.BleModule.writeCharacteristic(characteristicIdentifier, base64Value, false, transactionId)));
+
+              case 3:
+                nativeCharacteristic = _context22.sent;
+                return _context22.abrupt("return", new _Characteristic.Characteristic(nativeCharacteristic, this));
+
+              case 5:
+              case "end":
+                return _context22.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "monitorCharacteristicForDevice",
+      value: function monitorCharacteristicForDevice(deviceIdentifier, serviceUUID, characteristicUUID, listener, transactionId) {
+        var filledTransactionId = transactionId || this._nextUniqueID();
+
+        return this._handleMonitorCharacteristic(_BleModule.BleModule.monitorCharacteristicForDevice(deviceIdentifier, serviceUUID, characteristicUUID, filledTransactionId), filledTransactionId, listener);
+      }
+    }, {
+      key: "_monitorCharacteristicForService",
+      value: function _monitorCharacteristicForService(serviceIdentifier, characteristicUUID, listener, transactionId) {
+        var filledTransactionId = transactionId || this._nextUniqueID();
+
+        return this._handleMonitorCharacteristic(_BleModule.BleModule.monitorCharacteristicForService(serviceIdentifier, characteristicUUID, filledTransactionId), filledTransactionId, listener);
+      }
+    }, {
+      key: "_monitorCharacteristic",
+      value: function _monitorCharacteristic(characteristicIdentifier, listener, transactionId) {
+        var filledTransactionId = transactionId || this._nextUniqueID();
+
+        return this._handleMonitorCharacteristic(_BleModule.BleModule.monitorCharacteristic(characteristicIdentifier, filledTransactionId), filledTransactionId, listener);
+      }
+    }, {
+      key: "_handleMonitorCharacteristic",
+      value: function _handleMonitorCharacteristic(monitorPromise, transactionId, listener) {
+        var _this10 = this;
+
+        var monitorListener = function monitorListener(_ref5) {
+          var _ref6 = (0, _slicedToArray2.default)(_ref5, 3),
+              error = _ref6[0],
+              characteristic = _ref6[1],
+              msgTransactionId = _ref6[2];
+
+          if (transactionId !== msgTransactionId) return;
+
+          if (error) {
+            listener((0, _BleError.parseBleError)(error, _this10._errorCodesToMessagesMapping), null);
+            return;
+          }
+
+          listener(null, new _Characteristic.Characteristic(characteristic, _this10));
+        };
+
+        var subscription = this._eventEmitter.addListener(_BleModule.BleModule.ReadEvent, monitorListener);
+
+        var id = this._nextUniqueID();
+
+        var wrappedSubscription = {
+          remove: function remove() {
+            if (_this10._activeSubscriptions[id] != null) {
+              delete _this10._activeSubscriptions[id];
+              subscription.remove();
+            }
+          }
+        };
+        this._activeSubscriptions[id] = wrappedSubscription;
+
+        this._callPromise(monitorPromise).then(function () {
+          wrappedSubscription.remove();
+        }, function (error) {
+          listener(error, null);
+          wrappedSubscription.remove();
+        });
+
+        return {
+          remove: function remove() {
+            _BleModule.BleModule.cancelTransaction(transactionId);
+          }
+        };
+      }
+    }]);
+    return BleManager;
+  }();
+
+  exports.BleManager = BleManager;
+},606,[1,182,257,4,5,607,609,610,608,611,601],"node_modules\\react-native-ble-plx\\src\\BleManager.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Device = void 0;
+
+  var _extends2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/extends"));
+
+  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/helpers/classCallCheck"));
+
+  var _createClass2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3], "@babel/runtime/helpers/createClass"));
+
+  var _TypeDefinition = _$$_REQUIRE(_dependencyMap[4], "./TypeDefinition");
+
+  var Device = function () {
+    function Device(nativeDevice, manager) {
+      (0, _classCallCheck2.default)(this, Device);
+      (0, _extends2.default)(this, nativeDevice, {
+        _manager: manager
+      });
+    }
+
+    (0, _createClass2.default)(Device, [{
+      key: "requestConnectionPriority",
+      value: function requestConnectionPriority(connectionPriority, transactionId) {
+        return this._manager.requestConnectionPriorityForDevice(this.id, connectionPriority, transactionId);
+      }
+    }, {
+      key: "readRSSI",
+      value: function readRSSI(transactionId) {
+        return this._manager.readRSSIForDevice(this.id, transactionId);
+      }
+    }, {
+      key: "requestMTU",
+      value: function requestMTU(mtu, transactionId) {
+        return this._manager.requestMTUForDevice(this.id, mtu, transactionId);
+      }
+    }, {
+      key: "connect",
+      value: function connect(options) {
+        return this._manager.connectToDevice(this.id, options);
+      }
+    }, {
+      key: "cancelConnection",
+      value: function cancelConnection() {
+        return this._manager.cancelDeviceConnection(this.id);
+      }
+    }, {
+      key: "isConnected",
+      value: function isConnected() {
+        return this._manager.isDeviceConnected(this.id);
+      }
+    }, {
+      key: "onDisconnected",
+      value: function onDisconnected(listener) {
+        return this._manager.onDeviceDisconnected(this.id, listener);
+      }
+    }, {
+      key: "discoverAllServicesAndCharacteristics",
+      value: function discoverAllServicesAndCharacteristics(transactionId) {
+        return this._manager.discoverAllServicesAndCharacteristicsForDevice(this.id, transactionId);
+      }
+    }, {
+      key: "services",
+      value: function services() {
+        return this._manager.servicesForDevice(this.id);
+      }
+    }, {
+      key: "characteristicsForService",
+      value: function characteristicsForService(serviceUUID) {
+        return this._manager.characteristicsForDevice(this.id, serviceUUID);
+      }
+    }, {
+      key: "readCharacteristicForService",
+      value: function readCharacteristicForService(serviceUUID, characteristicUUID, transactionId) {
+        return this._manager.readCharacteristicForDevice(this.id, serviceUUID, characteristicUUID, transactionId);
+      }
+    }, {
+      key: "writeCharacteristicWithResponseForService",
+      value: function writeCharacteristicWithResponseForService(serviceUUID, characteristicUUID, valueBase64, transactionId) {
+        return this._manager.writeCharacteristicWithResponseForDevice(this.id, serviceUUID, characteristicUUID, valueBase64, transactionId);
+      }
+    }, {
+      key: "writeCharacteristicWithoutResponseForService",
+      value: function writeCharacteristicWithoutResponseForService(serviceUUID, characteristicUUID, valueBase64, transactionId) {
+        return this._manager.writeCharacteristicWithoutResponseForDevice(this.id, serviceUUID, characteristicUUID, valueBase64, transactionId);
+      }
+    }, {
+      key: "monitorCharacteristicForService",
+      value: function monitorCharacteristicForService(serviceUUID, characteristicUUID, listener, transactionId) {
+        return this._manager.monitorCharacteristicForDevice(this.id, serviceUUID, characteristicUUID, listener, transactionId);
+      }
+    }]);
+    return Device;
+  }();
+
+  exports.Device = Device;
+},607,[1,15,4,5,608],"node_modules\\react-native-ble-plx\\src\\Device.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.ConnectionPriority = exports.LogLevel = exports.State = exports.ScanCallbackType = exports.ScanMode = void 0;
+
+  var _BleError = _$$_REQUIRE(_dependencyMap[0], "./BleError");
+
+  var ScanMode = {
+    Opportunistic: -1,
+    LowPower: 0,
+    Balanced: 1,
+    LowLatency: 2
+  };
+  exports.ScanMode = ScanMode;
+  var ScanCallbackType = {
+    AllMatches: 1,
+    FirstMatch: 2,
+    MatchLost: 4
+  };
+  exports.ScanCallbackType = ScanCallbackType;
+  var State = {
+    Unknown: 'Unknown',
+    Resetting: 'Resetting',
+    Unsupported: 'Unsupported',
+    Unauthorized: 'Unauthorized',
+    PoweredOff: 'PoweredOff',
+    PoweredOn: 'PoweredOn'
+  };
+  exports.State = State;
+  var LogLevel = {
+    None: 'None',
+    Verbose: 'Verbose',
+    Debug: 'Debug',
+    Info: 'Info',
+    Warning: 'Warning',
+    Error: 'Error'
+  };
+  exports.LogLevel = LogLevel;
+  var ConnectionPriority = {
+    Balanced: 0,
+    High: 1,
+    LowPower: 2
+  };
+  exports.ConnectionPriority = ConnectionPriority;
+},608,[601],"node_modules\\react-native-ble-plx\\src\\TypeDefinition.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Service = void 0;
+
+  var _extends2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/extends"));
+
+  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/helpers/classCallCheck"));
+
+  var _createClass2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3], "@babel/runtime/helpers/createClass"));
+
+  var Service = function () {
+    function Service(nativeService, manager) {
+      (0, _classCallCheck2.default)(this, Service);
+      (0, _extends2.default)(this, nativeService, {
+        _manager: manager
+      });
+    }
+
+    (0, _createClass2.default)(Service, [{
+      key: "characteristics",
+      value: function characteristics() {
+        return this._manager._characteristicsForService(this.id);
+      }
+    }, {
+      key: "readCharacteristic",
+      value: function readCharacteristic(characteristicUUID, transactionId) {
+        return this._manager._readCharacteristicForService(this.id, characteristicUUID, transactionId);
+      }
+    }, {
+      key: "writeCharacteristicWithResponse",
+      value: function writeCharacteristicWithResponse(characteristicUUID, valueBase64, transactionId) {
+        return this._manager._writeCharacteristicWithResponseForService(this.id, characteristicUUID, valueBase64, transactionId);
+      }
+    }, {
+      key: "writeCharacteristicWithoutResponse",
+      value: function writeCharacteristicWithoutResponse(characteristicUUID, valueBase64, transactionId) {
+        return this._manager._writeCharacteristicWithoutResponseForService(this.id, characteristicUUID, valueBase64, transactionId);
+      }
+    }, {
+      key: "monitorCharacteristic",
+      value: function monitorCharacteristic(characteristicUUID, listener, transactionId) {
+        return this._manager._monitorCharacteristicForService(this.id, characteristicUUID, listener, transactionId);
+      }
+    }]);
+    return Service;
+  }();
+
+  exports.Service = Service;
+},609,[1,15,4,5],"node_modules\\react-native-ble-plx\\src\\Service.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Characteristic = void 0;
+
+  var _extends2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/extends"));
+
+  var _classCallCheck2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[2], "@babel/runtime/helpers/classCallCheck"));
+
+  var _createClass2 = _interopRequireDefault(_$$_REQUIRE(_dependencyMap[3], "@babel/runtime/helpers/createClass"));
+
+  var Characteristic = function () {
+    function Characteristic(nativeCharacteristic, manager) {
+      (0, _classCallCheck2.default)(this, Characteristic);
+      (0, _extends2.default)(this, nativeCharacteristic, {
+        _manager: manager
+      });
+    }
+
+    (0, _createClass2.default)(Characteristic, [{
+      key: "read",
+      value: function read(transactionId) {
+        return this._manager._readCharacteristic(this.id, transactionId);
+      }
+    }, {
+      key: "writeWithResponse",
+      value: function writeWithResponse(valueBase64, transactionId) {
+        return this._manager._writeCharacteristicWithResponse(this.id, valueBase64, transactionId);
+      }
+    }, {
+      key: "writeWithoutResponse",
+      value: function writeWithoutResponse(valueBase64, transactionId) {
+        return this._manager._writeCharacteristicWithoutResponse(this.id, valueBase64, transactionId);
+      }
+    }, {
+      key: "monitor",
+      value: function monitor(listener, transactionId) {
+        return this._manager._monitorCharacteristic(this.id, listener, transactionId);
+      }
+    }]);
+    return Characteristic;
+  }();
+
+  exports.Characteristic = Characteristic;
+},610,[1,15,4,5],"node_modules\\react-native-ble-plx\\src\\Characteristic.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.EventEmitter = exports.BleModule = void 0;
+
+  var _reactNative = _$$_REQUIRE(_dependencyMap[0], "react-native");
+
+  var _TypeDefinition = _$$_REQUIRE(_dependencyMap[1], "./TypeDefinition");
+
+  var BleModule = _reactNative.NativeModules.BleClientManager;
+  exports.BleModule = BleModule;
+  var EventEmitter = _reactNative.NativeEventEmitter;
+  exports.EventEmitter = EventEmitter;
+},611,[173,608],"node_modules\\react-native-ble-plx\\src\\BleModule.js");
+__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   var _interopRequireDefault = _$$_REQUIRE(_dependencyMap[0], "@babel/runtime/helpers/interopRequireDefault");
 
   var _interopRequireWildcard = _$$_REQUIRE(_dependencyMap[1], "@babel/runtime/helpers/interopRequireWildcard");
@@ -102897,7 +104624,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
       fontSize: 20
     }
   });
-},599,[1,3,4,5,6,9,10,12,19,173,571],"screens\\Tela2.js");
+},612,[1,3,4,5,6,9,10,12,19,173,571],"screens\\Tela2.js");
 __r(242);
 __r(0);
 //# sourceMappingURL=index.map

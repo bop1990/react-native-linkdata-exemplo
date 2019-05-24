@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button, ToastAndroid} from 'react-native';
 import { Navigation } from "react-native-navigation";
 import SplashScreen from 'react-native-splash-screen';
+import Bluetooth from './components/Bluetooth';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -21,14 +22,19 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
 
+  constructor(props){
+    super(props);
+    this.bluetooth = new Bluetooth();
+  }
+
   componentDidMount() {
-      SplashScreen.hide();
+      SplashScreen.hide(); 
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native! eee</Text>
+        <Text style={styles.welcome}>Welcome to React Native! kkkkk</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
 
@@ -37,8 +43,23 @@ export default class App extends Component<Props> {
           onPress={this.botaoTela2.bind(this)}
           title="Tela 2"
         />
+
+        <Text>{"\n\n"}</Text>
+
+        <Button style={styles.margemTop}
+          onPress={this.botaoBluetooth.bind(this)}
+          title="Bluetooth"
+        />
       </View>
     );
+  }
+
+  botaoBluetooth (){
+    this.bluetooth.scanAndConnect();
+    // this.bluetooth.teste();
+    // this.bluetooth.dipositivos();
+
+ 
   }
 
 
@@ -80,5 +101,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  margemTop: {
+    margin: 40,
+    padding: 10
   },
 });
