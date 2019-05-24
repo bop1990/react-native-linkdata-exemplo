@@ -21,29 +21,6 @@ public class MainApplication extends NavigationApplication {
       protected String getJSMainModuleName() {
         return "index";
       }
-
-//      @Override
-//      protected List<ReactPackage> getPackages() {
-//        List<ReactPackage> listaSuper = super.getPackages();
-//        listaSuper.add(new SplashScreenReactPackage());
-//        return listaSuper;
-
-//        return Arrays.<ReactPackage>asList(
-//                (ReactPackage) listaSuper,
-//                new SplashScreenReactPackage()  //here
-//        );
-
-//        return Arrays.<ReactPackage>asList(
-//                (ReactPackage) super.getPackages(),
-//                new SplashScreenReactPackage()  //here
-//        );
-
-//          return Arrays.<ReactPackage>asList(
-//                  new MainReactPackage(),
-//                  new NavigationPackage(this),
-//                  new SplashScreenReactPackage()
-//          );
-//      }
     };
     return new ReactGateway(this, isDebug(), host);
   }
